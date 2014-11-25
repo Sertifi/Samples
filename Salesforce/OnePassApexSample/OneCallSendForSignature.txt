@@ -1,0 +1,4 @@
+Sertifi2_0__SertifiSettings__c settings = Sertifi2_0__SertifiSettings__c.getValues('Settings');
+string results = Sertifi2_0.SertifiSFAPI.sendEContractToSertifi('a05F000000O3Cw7IAF', settings);
+System.debug(results);
+

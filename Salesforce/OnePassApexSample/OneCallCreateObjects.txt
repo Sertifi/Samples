@@ -1,0 +1,37 @@
+string signerEmail = 'mdragilev@sertifi.com';
+string opportunityId = '006F000000XLe0S';
+
+Sertifi2_0__TestContract__c contract = new Sertifi2_0__TestContract__c(
+    Name = 'Test Invites 1',
+    Sertifi2_0__Message__c = 'Custom invite message',
+    Sertifi2_0__Sign_Type__c = 'Electronically',
+    Sertifi2_0__Opportunity__c = opportunityId,
+    Sertifi2_0__Open__c = 1,
+                Sertifi2_0__Settings__c = 'Settings');
+insert contract;
+
+Sertifi2_0__EDocument__c signDoc = new Sertifi2_0__EDocument__c(
+                Sertifi2_0__TestContract__c = contract.id,
+    Sertifi2_0__Name__c = 'Test doc',
+    //Sertifi2_0__Sertifi_ID__c = 'qwerty',
+    Sertifi2_0__Number_Signed__c = 0,
+    Sertifi2_0__Document_Type__c = 'Signing Document');
+insert signDoc;
+
+String pdfContent = 'This is a test string';
+Attachment attachmentPDF = new Attachment();
+attachmentPdf.parentId = signDoc.id;
+attachmentPdf.name = 'Generated.pdf';
+attachmentPdf.body = blob.toPDF(pdfContent);
+insert attachmentPDF;
+
+Contact tempContact = [select id,name,email from Contact where email = 'placeholder@sertifi.com'][0];
+Sertifi2_0__ContractContactJunction__c signer = new Sertifi2_0__ContractContactJunction__c(
+    Sertifi2_0__Contact__c = tempContact.id,
+    Sertifi2_0__TestContract__c = contract.id,
+    Sertifi2_0__Signer_Order__c = 1,
+    Sertifi2_0__Level_Name__c = '1st Signer',
+                Sertifi2_0__Email__c = signerEmail);
+insert signer;
+
+System.debug(contract.id);
