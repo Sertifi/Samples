@@ -1,4 +1,4 @@
-﻿using OnePassSample.SfPartnerApi;
+using OnePassSample.SfPartnerApi;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -14,12 +14,12 @@ namespace OnePassSample
 {
     class Program
     {
-        static string _login = @"nstojka@67demo.com";
+        static string _login = @"login@somedomain.com";
         static string _password = @"";
         static string _settingsName = "Settings"; //name of the custom settings object
         static string _linkedOpportunityId = "006F000000XLe0S"; //id of the opportunity to which this contract is tied
         static string _folderName = "Test Invites " + DateTime.Now;
-        static string _signer = "mdragilev@sertifi.com";
+        static string _signer = "test@test.com";
 
         static readonly string _oneCallTemplate = 
             @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"">
