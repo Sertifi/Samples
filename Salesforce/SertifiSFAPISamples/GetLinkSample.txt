@@ -1,0 +1,15 @@
+Sertifi2_0.GetLinkRequest r = new Sertifi2_0.GetLinkRequest();
+
+List<Sertifi2_0.GetLinkParameter> lst = new List<Sertifi2_0.GetLinkParameter>();
+
+Sertifi2_0.GetLinkParameter l = new Sertifi2_0.GetLinkParameter();
+l.FileId = '.AQD4t_uDmM5e6qR1pUrB065w0';
+l.DocumentId = '.AQBvrNx2cqYr0kqANoDlc1mz0';
+l.LinkType = GetLinkType.FileSigningPageLink;
+l.SignerEmail = 'daytest1@gmail.com';
+lst.add(l);
+
+r.LinkParameters = lst;
+
+Sertifi2_0.GetLinkResponse res = Sertifi2_0.SertifiSFAPI.GetLink(r);
+System.Debug(res);
