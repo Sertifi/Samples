@@ -1,13 +1,18 @@
+List<Sertifi2_0.GetLinkParameter> lst = new List<Sertifi2_0.GetLinkParameter>();
 
 //Create request parameter
 Sertifi2_0.GetLinkParameter l = new Sertifi2_0.GetLinkParameter();
 l.FileId = '<!-- FileId -->';
 l.DocumentId = '<!-- DocumentId -->';
-l.LinkType = GetLinkType.FileSigningPageLink;
+l.LinkType = Sertifi2_0.GetLinkType.FileSigningPageLink;
 l.SignerEmail = '<!-- SignerEmail -->';
+lst.add(l);
 
-//Add the parameters to the list
-List<Sertifi2_0.GetLinkParameter> lst = new List<Sertifi2_0.GetLinkParameter>();
+l = new Sertifi2_0.GetLinkParameter();
+l.FileId = '<!-- FileId -->';
+l.DocumentId = '<!-- DocumentId -->';
+l.LinkType = Sertifi2_0.GetLinkType.SigningPageLink;
+l.SignerEmail = '<!-- SignerEmail -->';
 lst.add(l);
 
 //Creating GetLink request
@@ -16,4 +21,32 @@ request.LinkParameters = lst;
 
 //Make the call
 Sertifi2_0.GetLinkResponse response = Sertifi2_0.SertifiSFAPI.GetLink(request);
-System.Debug('Results: ': response.Results);
+//System.Debug('Results: ' + response.Results);
+
+//Iterate over results
+for (Sertifi2_0.GetLinkResult result : response.Results) {
+	System.Debug('Type: ' + result.LinkType + ' Link: ' + result.Link);
+}
+
+//access the links directly.  The links will be returned in the same order they were sent
+//so it is not neccesary to check link types
+//the response results has everything that was in the request as well as the returned link and error if any
+//	String DocumentId
+//	String Error
+//	String FileId
+//	String Link
+//	Sertifi2_0.GetLinkType LinkType
+//	String SignerEmail
+string permalinkLandingPage = response.Results[0].Link;
+string permalinkSigningPage = response.Results[1].Link;
+
+//It is probably a good idea to check for errors
+if (response.Results[0].Error != null)
+	system.debug('Error retrieving landing page link: ' + response.Results[0].Error);
+else
+	System.Debug('Landing page link: ' + permalinkLandingPage);
+    
+if (response.Results[1].Error != null)   
+        system.debug('Error retrieving signing page link: ' + response.Results[1].Error);
+else
+	System.Debug('Signing page link: ' + permalinkSigningPage);
