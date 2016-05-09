@@ -18,6 +18,7 @@ lst.add(l);
 //Creating GetLink request
 Sertifi2_0.GetLinkRequest request = new Sertifi2_0.GetLinkRequest();
 request.LinkParameters = lst;
+request.SettingsName = 'Settings'; //set default settings name
 
 //Make the call
 Sertifi2_0.GetLinkResponse response = Sertifi2_0.SertifiSFAPI.GetLink(request);
