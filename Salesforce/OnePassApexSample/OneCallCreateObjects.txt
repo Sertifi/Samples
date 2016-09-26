@@ -1,4 +1,4 @@
-string signerEmail = 'mdragilev@sertifi.com';
+string signerEmail = 'signerEmail@somedomain.com';
 string opportunityId = '006F000000XLe0S';
 
 Sertifi2_0__TestContract__c contract = new Sertifi2_0__TestContract__c(
