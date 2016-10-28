@@ -5,9 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by JakeHoward on 10/25/2016.
- */
+
 @XmlRootElement(name="record")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SetSigCustomMeta {
