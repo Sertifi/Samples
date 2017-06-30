@@ -11,7 +11,7 @@ lst.add(l);
 l = new Sertifi2_0.GetLinkParameter();
 l.FileId = '<!-- FileId -->';
 l.DocumentId = '<!-- DocumentId -->';
-l.LinkType = Sertifi2_0.GetLinkType.SigningPageLink;
+l.LinkType = Sertifi2_0.GetLinkType.SecureFileSigningPageLink;
 l.SignerEmail = '<!-- SignerEmail -->';
 lst.add(l);
 
