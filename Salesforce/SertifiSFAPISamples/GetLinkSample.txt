@@ -10,7 +10,8 @@ lst.add(l);
 
 l = new Sertifi2_0.GetLinkParameter();
 l.FileId = '<!-- FileId -->';
-l.DocumentId = '<!-- DocumentId -->';
+//for SecureFileSigningPageLink document id is not required. Use document id when retrieving signed document
+l.DocumentId = '';
 l.LinkType = Sertifi2_0.GetLinkType.SecureFileSigningPageLink;
 l.SignerEmail = '<!-- SignerEmail -->';
 lst.add(l);
