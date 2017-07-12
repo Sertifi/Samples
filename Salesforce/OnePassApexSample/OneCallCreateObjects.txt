@@ -7,7 +7,9 @@ Sertifi2_0__TestContract__c contract = new Sertifi2_0__TestContract__c(
     Sertifi2_0__Sign_Type__c = 'Electronically',
     Sertifi2_0__Opportunity__c = opportunityId,
     Sertifi2_0__Open__c = 1,
-                Sertifi2_0__Settings__c = 'Settings');
+	//Setting the custom object id so that contract is linked to the object mentioned in the custom settings 
+	//Sertifi2_0__CustomLinkID__c = 'custom object id',	
+    Sertifi2_0__Settings__c = 'Settings');
 insert contract;
 
 Sertifi2_0__EDocument__c signDoc = new Sertifi2_0__EDocument__c(
@@ -35,3 +37,5 @@ Sertifi2_0__ContractContactJunction__c signer = new Sertifi2_0__ContractContactJ
 insert signer;
 
 System.debug(contract.id);
+
+//At this point contract is ready to be sent. To send the contract, you have to execute the code mention in file 'OneCallSendForSignature.txt' as a future call 
