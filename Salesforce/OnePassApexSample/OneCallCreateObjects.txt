@@ -36,6 +36,14 @@ Sertifi2_0__ContractContactJunction__c signer = new Sertifi2_0__ContractContactJ
                 Sertifi2_0__Email__c = signerEmail);
 insert signer;
 
+//Creating payment objects
+Sertifi2_0__Payment__c payment = new Sertifi2_0__Payment__c();
+payment.Name = 'Test Payment';
+payment.Sertifi2_0__EContract__c = contract.id;
+payment.Sertifi2_0__Amount__c = 10.25;
+payment.Sertifi2_0__DueDate__c = date.today().addDays(30); //expires after 30 days
+insert payment;
+
 System.debug(contract.id);
 
 //At this point contract is ready to be sent. To send the contract, you have to execute the code mention in file 'OneCallSendForSignature.txt' as a future call 
