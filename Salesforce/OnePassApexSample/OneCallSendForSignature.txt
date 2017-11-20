@@ -3,7 +3,7 @@ Sertifi2_0__SertifiSettings__c settings = Sertifi2_0__SertifiSettings__c.getValu
 //contract is Sertifi2_0__TestContract__c object which you want to send to Sertifi Gateway API
 Id eContractId = contract.id; 
 
-//sendEContractToSertifi method does make API calls, recommanded documentation to read:
+//sendEContractToSertifi method makes web service calls, recommended documentation to read:
 // https://trailhead.salesforce.com/en/modules/asynchronous_apex/units/async_apex_future_methods
 string results = Sertifi2_0.SertifiSFAPI.sendEContractToSertifi(eContractId, settings);
 System.debug(results);
