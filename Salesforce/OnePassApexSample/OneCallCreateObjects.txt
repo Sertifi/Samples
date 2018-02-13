@@ -1,5 +1,5 @@
 string signerEmail = 'signerEmail@somedomain.com';
-string opportunityId = '006F000000XLe0S';
+string opportunityId = '006F000000XLe0S'; //Opportunity Id to which eContract object should be linked too.
 
 Sertifi2_0__TestContract__c contract = new Sertifi2_0__TestContract__c(
     Name = 'Test Invites 1',
@@ -20,6 +20,7 @@ Sertifi2_0__EDocument__c signDoc = new Sertifi2_0__EDocument__c(
     Sertifi2_0__Document_Type__c = 'Signing Document');
 insert signDoc;
 
+//Creating test document on fly
 String pdfContent = 'This is a test string';
 Attachment attachmentPDF = new Attachment();
 attachmentPdf.parentId = signDoc.id;
@@ -44,6 +45,13 @@ payment.Sertifi2_0__Amount__c = 10.25;
 payment.Sertifi2_0__Operation__c = 'Pay', //Default is 'Pay', set to 'Authorize' for authorizations
 payment.Sertifi2_0__DueDate__c = date.today().addDays(30); //expires after 30 days
 insert payment;
+
+//Creating additional parameters
+Sertifi2_0__EContract_Parameter__c parameter = new Sertifi2_0__EContract_Parameter__c();
+parameter.Sertifi2_0__EContract__c = contract.id;
+parameter.Name = 'fileexternalid1';
+parameter.Sertifi2_0__Value__c = 'file externalid data';
+insert parameter;
 
 System.debug(contract.id);
 
