@@ -1,0 +1,56 @@
+public with sharing class SendZQuoteFromOppController {
+
+	public PageReference passQuoteId()
+	{
+		//set PageReference to redirect to Sertifi's VF page
+		PageReference requestPage = new PageReference('/apex/Sertifi2_0__CreateSignatureRequest');
+		//client-side redirect
+		requestPage.setRedirect(true);
+
+		//get parameters from currentPage to pass along
+		Map<String, String> parameters = ApexPages.currentPage().getParameters();
+		for (String key : parameters.keySet()) {
+			requestPage.getParameters().put(key, parameters.get(key));
+		}
+		ID opporID;
+		//get oppID from passed in parameters
+		try {
+			opporID = parameters.get('oppID');
+			if (String.isBlank(opporID)) {
+				opporID = parameters.get('customID'); //check for custom Id if oppID is missing
+			}
+		}
+		catch(StringException e)
+		{
+			ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, 'Invalid ID'));
+			return null;
+		}
+		if (String.isBlank(opporID)) //|| opporID.getSobjectType() != 'Opportunity'
+		{
+			ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, 'No OppID value found'));
+			return null;
+		}
+
+		Map<Id, Opportunity> oppMatch = new Map<Id, Opportunity> ([SELECT Id, Name FROM Opportunity where Id = :opporID]);
+
+		if (oppMatch.size() == 0) {
+			ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, 'Unable to validate, Bad OpportunityID value'));
+			return null;
+		}
+
+		//get the newest zQuote that matches Opp ID
+		List<zqu__Quote__c> zQuote = new List<zqu__Quote__c> ([SELECT Id, zqu__ZuoraAccountID__c, zqu__Opportunity__c FROM zqu__Quote__c where zqu__Opportunity__c = :opporID ORDER BY LastModifiedDate DESC LIMIT 1]);
+		if (zQuote.isEmpty()) {
+			ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR, 'No zQuotes found linked to Opportunity'));
+			return null;
+		}
+		else {
+			requestPage.getParameters().put('ZuoraQuoteID', zQuote.get(0).Id);
+			requestPage.getParameters().put('ZuoraAccountID', zQuote.get(0).zqu__ZuoraAccountID__c);
+		}
+
+		//redirect with all attached Zuora fields appended
+		return requestPage;
+	}
+
+}

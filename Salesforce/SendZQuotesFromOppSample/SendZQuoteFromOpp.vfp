@@ -1,0 +1,4 @@
+<apex:page action="{!passQuoteId}" controller="SendZQuoteFromOppController">
+    <p>Attaching Zuora Quote information...</p>
+    <apex:pageMessages id="showmsg"></apex:pageMessages>
+</apex:page>

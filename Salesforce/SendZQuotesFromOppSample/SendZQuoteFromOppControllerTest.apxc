@@ -1,0 +1,98 @@
+@isTest
+private class SendZQuoteFromOppControllerTest {
+	@isTest
+    static void testBadOpp(){
+        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+		Opportunity testOpp = createOpportunity();
+        
+        PageReference badLink = new PageReference('/apex/QuoteID?oppID=006FLe0'); //assert null for bad ID format in parameters
+        Test.setCurrentPage(badLink);
+        PageReference pullQuoteData = testController.passQuoteId();
+        System.assertEquals(null, pullQuoteData);
+
+    }
+    @isTest
+    static void testCustomID(){
+        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+		Account fakeOpp = new Account();
+        insert fakeOpp;
+        PageReference badLink = new PageReference('/apex/QuoteID'); //assert null for bad ID format from customID
+        badLink.getParameters().put('customID', fakeOpp.Id);
+        Test.setCurrentPage(badLink);
+        PageReference pullQuoteData = testController.passQuoteId();
+        System.assertEquals(null, pullQuoteData);
+    }
+    @isTest
+    static void testBadCustomID(){
+        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+		Opportunity testOpp = createOpportunity();
+        PageReference badLink = new PageReference('/apex/QuoteID?customID=006FLe0'); //assert null for good ID format from customID
+        badLink.getParameters().put('customID', testOpp.Id);
+        Test.setCurrentPage(badLink);
+        PageReference pullQuoteData = testController.passQuoteId();
+        System.assertEquals(null, pullQuoteData);
+    }
+    @isTest
+    static void testMissOpp(){
+        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+		Opportunity testOpp = createOpportunity();
+        
+        PageReference badLink = new PageReference('/apex/QuoteID?oppID=006F000000QT0uy'); //assert null for opportunity not found
+        Test.setCurrentPage(badLink);
+        PageReference pullQuoteData = testController.passQuoteId();
+        System.assertEquals(null, pullQuoteData);
+
+    }
+    @isTest
+    static void testNoOpp(){
+        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+        
+        PageReference missingParam = new PageReference('/apex/QuoteID'); //assert null for missing Opportunity in parameters
+        Test.setCurrentPage(missingParam);
+        PageReference pullQuoteData = testController.passQuoteId();
+        System.assertEquals(null, pullQuoteData);
+    }    
+    @isTest
+    static void testNoQuote(){
+        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+		Opportunity testOpp = createOpportunity();
+        
+        PageReference noQuote = new PageReference('/apex/QuoteID'); //assert null for missing Quote linked to Opportunity
+        noQuote.getParameters().put('oppID', testOpp.Id);
+        noQuote.getParameters().put('filename', testOpp.Name);
+        Test.setCurrentPage(noQuote);
+        PageReference pullQuoteData = testController.passQuoteId();
+        System.assertEquals(null, pullQuoteData);
+    }    
+    @isTest
+    static void testSuccess(){
+        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+		Opportunity testOpp = createOpportunity();
+        zqu__Quote__c testQuote = createQuote(testOpp);
+
+        PageReference success = new PageReference('/apex/QuoteID'); //assert redirect success
+        success.getParameters().put('oppID', testOpp.Id);
+        success.getParameters().put('filename', testOpp.Name);
+        Test.setCurrentPage(success);
+        PageReference pullQuoteData = testController.passQuoteId();
+        System.assertNotEquals(null, pullQuoteData);
+    }    
+    static Opportunity createOpportunity() {
+        Opportunity opp = new Opportunity();
+        opp.Name = 'Test opp';
+        opp.StageName = 'Test';
+        opp.CloseDate = Date.newInstance(2010, 1, 1);
+        insert opp;
+        
+        return opp;
+    }
+    static zqu__Quote__c createQuote(Opportunity lookup) {
+        zqu__Quote__c quote  = new zqu__Quote__c();
+        quote.zqu__Opportunity__c = lookup.Id;
+        quote.zqu__ZuoraAccountID__c = '2c92c0f954601c5701546424b64f7970';
+        insert quote;
+        
+        return quote;
+    }
+    
+}
