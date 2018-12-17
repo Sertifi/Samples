@@ -4,9 +4,7 @@ It includes- Two apex classes (one for testing, one custom VisualForce controlle
 
 In order to use, please:
 
-1. Create a custom field on the opportunity object named 'ElectronicPaymentMethodId'. Data type is 'Text', length is 64. If you would like to change the custom field name, you will also have to modify the Apex controller code to point to the custom field.
-
-2. Create a custom button in the Opportunity object with the following settings.
+1. Create a custom button in the Opportunity object with the following settings.
 
 Label: Sertifi Wizard
 Name: Sertifi_Wizard
