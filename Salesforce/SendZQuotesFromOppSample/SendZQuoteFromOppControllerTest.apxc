@@ -2,7 +2,7 @@
 private class SendZQuoteFromOppControllerTest {
 	@isTest
     static void testBadOpp(){
-        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+        SendZQuoteFromOppController testController = new SendZQuoteFromOppController();
 		Opportunity testOpp = createOpportunity();
         
         PageReference badLink = new PageReference('/apex/QuoteID?oppID=006FLe0'); //assert null for bad ID format in parameters
@@ -13,8 +13,9 @@ private class SendZQuoteFromOppControllerTest {
     }
     @isTest
     static void testCustomID(){
-        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+        SendZQuoteFromOppController testController = new SendZQuoteFromOppController();
 		Account fakeOpp = new Account();
+        fakeOpp.name = 'Fake Opportunity';
         insert fakeOpp;
         PageReference badLink = new PageReference('/apex/QuoteID'); //assert null for bad ID format from customID
         badLink.getParameters().put('customID', fakeOpp.Id);
@@ -24,7 +25,7 @@ private class SendZQuoteFromOppControllerTest {
     }
     @isTest
     static void testBadCustomID(){
-        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+        SendZQuoteFromOppController testController = new SendZQuoteFromOppController();
 		Opportunity testOpp = createOpportunity();
         PageReference badLink = new PageReference('/apex/QuoteID?customID=006FLe0'); //assert null for good ID format from customID
         badLink.getParameters().put('customID', testOpp.Id);
@@ -34,7 +35,7 @@ private class SendZQuoteFromOppControllerTest {
     }
     @isTest
     static void testMissOpp(){
-        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+        SendZQuoteFromOppController testController = new SendZQuoteFromOppController();
 		Opportunity testOpp = createOpportunity();
         
         PageReference badLink = new PageReference('/apex/QuoteID?oppID=006F000000QT0uy'); //assert null for opportunity not found
@@ -45,7 +46,7 @@ private class SendZQuoteFromOppControllerTest {
     }
     @isTest
     static void testNoOpp(){
-        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+        SendZQuoteFromOppController testController = new SendZQuoteFromOppController();
         
         PageReference missingParam = new PageReference('/apex/QuoteID'); //assert null for missing Opportunity in parameters
         Test.setCurrentPage(missingParam);
@@ -54,7 +55,7 @@ private class SendZQuoteFromOppControllerTest {
     }    
     @isTest
     static void testNoQuote(){
-        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+        SendZQuoteFromOppController testController = new SendZQuoteFromOppController();
 		Opportunity testOpp = createOpportunity();
         
         PageReference noQuote = new PageReference('/apex/QuoteID'); //assert null for missing Quote linked to Opportunity
@@ -66,7 +67,7 @@ private class SendZQuoteFromOppControllerTest {
     }    
     @isTest
     static void testSuccess(){
-        sendingzQuoteFromOppController testController = new sendingzQuoteFromOppController();
+        SendZQuoteFromOppController testController = new SendZQuoteFromOppController();
 		Opportunity testOpp = createOpportunity();
         zqu__Quote__c testQuote = createQuote(testOpp);
 
