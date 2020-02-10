@@ -47,6 +47,6 @@ Creating and inserting each custom object is necessary when following this path.
 * Sertifi2_0\__SertifiSettings\__c.getValues(String name)
     * Returns: Sertifi2_0\__SertifiSettings__c object that matches the name parameter
     * Enter in the name of the custom settings to use
-* @future Sertifi2_0.SertifiSFAPI.sendEContractToSertifi(ID EContractID, Sertifi2_0__SertifiSettings__c settings)
+* @future Sertifi2_0.SertifiSFAPI.sendEContractToSertifi(ID EContractID, Sertifi2_0\__SertifiSettings\__c settings)
     * Returns: Result of callout as String
     * Place under separate @future method for async capabilities
