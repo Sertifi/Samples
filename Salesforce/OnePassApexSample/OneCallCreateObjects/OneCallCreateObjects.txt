@@ -28,7 +28,7 @@ attachmentPdf.name = 'Generated.pdf';
 attachmentPdf.body = blob.toPDF(pdfContent);
 insert attachmentPDF;
 
-Contact tempContact = [select id,name,email from Contact where email = 'placeholder@sertifi.com'][0];
+Contact tempContact = [select id,name,email from Contact where email = 'placeholder@sertifi.com' LIMIT 1];
 Sertifi2_0__ContractContactJunction__c signer = new Sertifi2_0__ContractContactJunction__c(
     Sertifi2_0__Contact__c = tempContact.id,
     Sertifi2_0__TestContract__c = contract.id,
