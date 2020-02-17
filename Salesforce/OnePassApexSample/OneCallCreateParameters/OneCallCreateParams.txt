@@ -1,0 +1,65 @@
+string signerEmail = 'signerEmail@somedomain.com';
+string opportunityId = '006F000000XLe0S'; //Opportunity Id to which eContract object should be linked too.
+
+Sertifi2_0__TestContract__c contract = new Sertifi2_0__TestContract__c(
+    Name = 'Test Invites 1',
+    Sertifi2_0__Message__c = 'Custom invite message',
+    Sertifi2_0__Sign_Type__c = 'Electronically',
+    Sertifi2_0__Opportunity__c = opportunityId,
+    Sertifi2_0__Open__c = 1,
+	//Setting the custom object id so that contract is linked to the object mentioned in the custom settings 
+	//Sertifi2_0__CustomLinkID__c = 'custom object id',	
+    Sertifi2_0__Settings__c = 'Settings');
+insert contract;
+
+//Creating test document on fly
+String pdfContent = 'This is a test string';
+Attachment attachmentPDF = new Attachment();
+attachmentPdf.parentId = signDoc.id;
+attachmentPdf.name = 'Generated.pdf';
+attachmentPdf.body = blob.toPDF(pdfContent);
+insert attachmentPDF;
+
+
+//Creating document parameter
+Sertifi2_0__EContract_Parameter__c docParameter = new Sertifi2_0__EContract_Parameter__c();
+docParameter.Sertifi2_0__EContract__c = contract.id;
+docParameter.Name = 'attachmentid';
+docParameter.Sertifi2_0__Value__c = String.valueOf(attachmentPDF.Id);
+insert docParameter;
+
+//Creating signer parameter
+Sertifi2_0__EContract_Parameter__c signParameter = new Sertifi2_0__EContract_Parameter__c();
+signParameter.Sertifi2_0__EContract__c = contract.id;
+signParameter.Name = '1stsigner';
+signParameter.Sertifi2_0__Value__c = 'test@me.com';
+insert signParameter;
+
+//Creating payment parameters
+Sertifi2_0__EContract_Parameter__c payParameter = new Sertifi2_0__EContract_Parameter__c();
+payParameter.Sertifi2_0__EContract__c = contract.id;
+payParameter.Name = 'paymentName';
+payParameter.Sertifi2_0__Value__c = 'Test Payment';
+insert payParameter;
+
+Sertifi2_0__EContract_Parameter__c amountParameter = new Sertifi2_0__EContract_Parameter__c();
+amountParameter.Sertifi2_0__EContract__c = contract.id;
+amountParameter.Name = 'paymentamount';
+amountParameter.Sertifi2_0__Value__c = '1050';
+insert amountParameter;
+
+//Creating authorization parameters
+Sertifi2_0__EContract_Parameter__c authParameter = new Sertifi2_0__EContract_Parameter__c();
+authParameter.Sertifi2_0__EContract__c = contract.id;
+authParameter.Name = 'paymentName';
+authParameter.Sertifi2_0__Value__c = 'Test Auth';
+insert authParameter;
+
+Sertifi2_0__EContract_Parameter__c operParameter = new Sertifi2_0__EContract_Parameter__c();
+operParameter.Sertifi2_0__EContract__c = contract.id;
+operParameter.Name = 'paymentoperation';
+operParameter.Sertifi2_0__Value__c = 'authorize';
+insert operParameter;
+
+
+//At this point contract is ready to be sent. To send the contract, you have to execute the code mention in file 'OneCallSendForSignature.txt' as a future call 
