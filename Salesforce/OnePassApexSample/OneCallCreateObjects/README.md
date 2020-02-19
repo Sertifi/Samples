@@ -20,8 +20,7 @@ Creating and inserting each custom object is necessary when following this path.
 * Sertifi EContract: Sertifi2_0\__TestContract\__c
     * Name (String)
     * Sertifi2_0\__Sign_Type\__c (String): 'Electronically'
-    * Sertifi2_0\__Open\__c (Int): Set value to amount of items for signature or payment (e.g 2 documents + 1 payment = 3)
-    * Object Lookup (Id/String): If a standard object, use prebuilt field. If not, use Sertifi2_0\__CustomLinkID\__c (String)
+    * Sertifi2_0\__CustomLinkID\__c (String): Takes ID formatted as string to connect to necessary parent object
     * Sertifi2_0\__Settings\__c (String): Name of your Custom Settings. Default recommendation is 'Settings'
 
 #### Signer holds the relationship between a Contact Object and any associated EContracts. If you don't have a Contact record for a specific signer, create a placeholder Contact record with the email set to 'placeholder@sertifi.com'.
