@@ -25,14 +25,14 @@ If you have a use case where leveraging Sertifi's event notifications is require
 
 1. Create Apex Class
 2. Extend Interface
-    ```
+```
     //Summary: This class extends Sertifi's UpdateNotifications to add additional logic when parsing EContractActivity 
     global with sharing class UpdateNotificationsHandler implements  Sertifi2_0.UpdateNotifications {
         public UpdateNotificationsHandler() {}
        
         //notifications recieved from the createActivity method from the base package
         public void ReceiveNotification(ID eContractId, ID eContractActivityId, string actbase, string actdetail){}
-    ```
+```
 3. Add your custom logic within the ReceiveNotifications method
 4. In Setup-->Custom Settings, add the name of your new Apex class to the field UpdateMethodName 
 
