@@ -21,8 +21,7 @@ By taking advantage of our parameters, you can quickly build and send out a Sert
 *   Sertifi EContract: Sertifi2_0\__TestContract\__c  
     * Name (String)  
     * Sertifi2_0\__Sign_Type\__c (String): ‘Electronically’  
-    * Sertifi2_0\__Open\__c (Int): Set value to amount of items for signature or payment (e.g 2 documents + 1 payment = 3)  
-    * Object Lookup (Id/String): If a standard object, use prebuilt field. If not, use Sertifi2_0\__CustomLinkID\__c (String)  
+    * Sertifi2_0\__CustomLinkID\__c (String): Takes ID formatted as string to connect to necessary parent object
     * Sertifi2_0\__Settings\__c (String): Name of your Custom Settings. Default recommendation is ‘Settings’
 #### EContractParameter can complete all other necessary requirements (Adding at least one signer, attaching either a document or payment)
 * Sertifi EContractParameter: Sertifi2_0\__EContract_Parameter\__c;
