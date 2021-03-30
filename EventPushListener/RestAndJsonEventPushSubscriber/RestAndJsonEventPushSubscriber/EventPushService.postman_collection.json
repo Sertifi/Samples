@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "953db0d3-f1ea-4552-9a2a-85feb6c84f02",
+		"name": "EventPushService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "NotificationEvent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiKey",
+						"value": "\"securityToken\"",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"SecurityToken\":\"asdf\",\r\n    \"Password\":\"asdf\",\r\n    \"EventTypeId\":\"PaymentRemoved\",\r\n    \"EventId\":1,\r\n    \"EventTime\":\"2002-09-24\",\r\n    \"EventParameters\":[{\r\n        \"Name\":\"FileId\",\r\n        \"Value\":\".123w5erasfdc\"\r\n    }]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44355/v1/notifications",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44355",
+					"path": [
+						"v1",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TestBase",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44355/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44355",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
