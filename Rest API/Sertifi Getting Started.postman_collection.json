@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "9b984b40-499a-4a2e-bbbe-f2961a27e285",
+		"name": "Sertifi Getting Started",
+		"description": "This collection contains the three basic calls in order to generate a folder, add documents for signature, and finally send out invites to users via email.\n\nAn additional call is contained in order to poll real time the status of the folder.\n\n### **Setup**\n\nPlease remember to update the authorization header with your API key. To find your API key, please log into your Sertifi portal (sertifi.com/xxxxx) and navigate to 'Administration' -> 'Account Settings'. The API key should be on the top left-hand side of the window.\n\n### **Resources**\n\nPlease visit https://api.sertifi.com/swagger/index.html to see the entire API schema.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateFolder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"folderID\", responseJson.folderId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Test Folder\",\r\n  \"participants\": [\r\n    {\r\n      \"email\": \"example@sample.com\",\r\n      \"participantType\": \"FirstSigner\"\r\n    }\r\n  ],\r\n  \"sender\": {\r\n        \"email\": \"email@example.com\",\r\n        \"firstName\": \"John\",\r\n        \"lastName\": \"Smith\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sertifi.com/v1/folders",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sertifi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"folders"
+					]
+				},
+				"description": "The very first call to make is creating the folder. A folder is the logical container for all tasks that must be completed by participants (signature documents, payment requests, authorizations). In this example, we will only be adding signature documents. \n\n## Request\nThe folder JSON is divided into three sections:\n1. Folder parameters\n2. Participant information\n3. Sender information\n\n* The only required folder parameter is the name.\n* Participants are the people that need to complete tasks in order to finalize the folder and agreement. If you'd like more participants, you can change the participantType to SecondSigner/ThirdSigner etc...\n* Senders are the owner of the folder and where the delivery/notification emails will go.\n\n## Response\n\nIn the response JSON, the folderID will be used for all subsequent calls. The test scripts automatically pull in the folderID and store it as a collection variable."
+			},
+			"response": []
+		},
+		{
+			"name": "AddDocument",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Non-disclosure agreement.\",\r\n  \"filename\": \"StandardContract.pdf\",\r\n  \"fileContent\": \"A base64 encoded string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sertifi.com/v1/{{folderID}}/documents/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sertifi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"{{folderID}}",
+						"documents",
+						""
+					]
+				},
+				"description": "## Request\n\n* The fileContent should be the file converted to a base64 encoded string.\n* Don't forget the file ending for the FileName!\n\n## Response\n* The response will contain the unique DocumentID when successful."
+			},
+			"response": []
+		},
+		{
+			"name": "SendInvite",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sertifi.com/v1/{{folderID}}invites",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sertifi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"{{folderID}}invites"
+					]
+				},
+				"description": "When you have added all necessary documents for signature, the Folder is now ready for invitations to be sent out!\n\n* Yes, you do need to send an empty JSON in the request body"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Folder Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.sertifi.com/v1/folders/{{folderID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sertifi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"folders",
+						"{{folderID}}"
+					]
+				},
+				"description": "If you need point-in-time information related to the status of a folder and the documents within it, this call will be able to retrieve all the information."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "xxxxx",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "sertifi-api-code",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "folderID",
+			"value": ""
+		}
+	]
+}
