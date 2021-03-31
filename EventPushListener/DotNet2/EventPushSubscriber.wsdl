@@ -94,10 +94,10 @@
   </wsdl:binding>
   <wsdl:service name="EventPushSubscriber">
     <wsdl:port name="EventPushSubscriberSoap" binding="tns:EventPushSubscriberSoap">
-      <soap:address location="https://devsertifi.com/testsite/Services/EventPushSubscriber.asmx" />
+      <soap:address location="https://sandbox.sertifi.net/TestSite/Services/EventPushSubscriber.asmx" />
     </wsdl:port>
     <wsdl:port name="EventPushSubscriberSoap12" binding="tns:EventPushSubscriberSoap12">
-      <soap12:address location="https://devsertifi.com/testsite/Services/EventPushSubscriber.asmx" />
+      <soap12:address location="https://sandbox.sertifi.net/TestSite/Services/EventPushSubscriber.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
