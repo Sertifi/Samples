@@ -28,7 +28,28 @@ namespace WebServices
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://apps.sertifi.net/services/subscribers", TypeName="EventType")]
     public enum EventType
     {
-        
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute(Name = "FileCreated")]
+        FileCreated,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute(Name = "FileCompleted")]
+        FileCompleted,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute(Name = "FileReassigned")]
+        FileReassigned,
+
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute(Name = "FileExpired")]
+        FileExpired,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute(Name = "StreamCommentAdded")]
+        StreamCommentAdded,
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute(Name="AgreementCreated")]
         AgreementCreated,
@@ -42,9 +63,13 @@ namespace WebServices
         AgreementCompleted,
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlEnumAttribute(Name="FileReassigned")]
-        FileReassigned,
-        
+        [System.Xml.Serialization.XmlEnumAttribute(Name = "AgreementExpired")]
+        AgreementExpired,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute(Name = "RequestReassigned")]
+        RequestReassigned,
+
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute(Name="SignerDeclined")]
         SignerDeclined,
@@ -56,5 +81,21 @@ namespace WebServices
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute(Name="UserVisited")]
         UserVisited,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute(Name = "PaymentFailed")]
+        PaymentFailed,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute(Name = "PaymentReceived")]
+        PaymentReceived,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute(Name = "PaymentRefunded")]
+        PaymentRefunded,
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute(Name = "PaymentRemoved")]
+        PaymentRemoved
     }
 }

@@ -1,93 +1,103 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://apps.sertifi.net/services/subscribers" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://apps.sertifi.net/services/subscribers" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://apps.sertifi.net/services/subscribers" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://apps.sertifi.net/services/subscribers" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://apps.sertifi.net/services/subscribers">
       <s:element name="ReceiveNotification">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="notificationEvent" type="tns:NotificationEvent"/>
+            <s:element minOccurs="0" maxOccurs="1" name="notificationEvent" type="tns:NotificationEvent" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="NotificationEvent">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="SecurityToken" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="EventTypeId" type="tns:EventType"/>
-          <s:element minOccurs="1" maxOccurs="1" name="EventId" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="EventTime" type="s:dateTime"/>
-          <s:element minOccurs="0" maxOccurs="1" name="EventParameters" type="tns:ArrayOfNotificationEventParameter"/>
+          <s:element minOccurs="0" maxOccurs="1" name="SecurityToken" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EventTypeId" type="tns:EventType" />
+          <s:element minOccurs="1" maxOccurs="1" name="EventId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="EventTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventParameters" type="tns:ArrayOfNotificationEventParameter" />
         </s:sequence>
       </s:complexType>
       <s:simpleType name="EventType">
         <s:restriction base="s:string">
-          <s:enumeration value="AgreementCreated"/>
-          <s:enumeration value="AgreementSigned"/>
-          <s:enumeration value="AgreementCompleted"/>
-          <s:enumeration value="FileReassigned"/>
-          <s:enumeration value="SignerDeclined"/>
-          <s:enumeration value="UserInvited"/>
-          <s:enumeration value="UserVisited"/>
+          <s:enumeration value="FileCreated" />
+          <s:enumeration value="FileCompleted" />
+          <s:enumeration value="FileReassigned" />
+          <s:enumeration value="FileExpired" />
+          <s:enumeration value="StreamCommentAdded" />
+          <s:enumeration value="AgreementCreated" />
+          <s:enumeration value="AgreementSigned" />
+          <s:enumeration value="AgreementCompleted" />
+          <s:enumeration value="AgreementExpired" />
+          <s:enumeration value="RequestReassigned" />
+          <s:enumeration value="SignerDeclined" />
+          <s:enumeration value="UserInvited" />
+          <s:enumeration value="UserVisited" />
+          <s:enumeration value="PaymentFailed" />
+          <s:enumeration value="PaymentReceived" />
+          <s:enumeration value="PaymentRefunded" />
+          <s:enumeration value="PaymentRemoved" />
         </s:restriction>
       </s:simpleType>
       <s:complexType name="ArrayOfNotificationEventParameter">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="NotificationEventParameter" nillable="true" type="tns:NotificationEventParameter"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NotificationEventParameter" nillable="true" type="tns:NotificationEventParameter" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="NotificationEventParameter">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="ReceiveNotificationResponse">
-        <s:complexType/>
+        <s:complexType />
       </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="ReceiveNotificationSoapIn">
-    <wsdl:part name="parameters" element="tns:ReceiveNotification"/>
+    <wsdl:part name="parameters" element="tns:ReceiveNotification" />
   </wsdl:message>
   <wsdl:message name="ReceiveNotificationSoapOut">
-    <wsdl:part name="parameters" element="tns:ReceiveNotificationResponse"/>
+    <wsdl:part name="parameters" element="tns:ReceiveNotificationResponse" />
   </wsdl:message>
   <wsdl:portType name="EventPushSubscriberSoap">
     <wsdl:operation name="ReceiveNotification">
-      <wsdl:input message="tns:ReceiveNotificationSoapIn"/>
-      <wsdl:output message="tns:ReceiveNotificationSoapOut"/>
+      <wsdl:input message="tns:ReceiveNotificationSoapIn" />
+      <wsdl:output message="tns:ReceiveNotificationSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="EventPushSubscriberSoap" type="tns:EventPushSubscriberSoap">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="ReceiveNotification">
-      <soap:operation soapAction="http://apps.sertifi.net/services/subscribers/ReceiveNotification" style="document"/>
+      <soap:operation soapAction="http://apps.sertifi.net/services/subscribers/ReceiveNotification" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="EventPushSubscriberSoap12" type="tns:EventPushSubscriberSoap">
-    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="ReceiveNotification">
-      <soap12:operation soapAction="http://apps.sertifi.net/services/subscribers/ReceiveNotification" style="document"/>
+      <soap12:operation soapAction="http://apps.sertifi.net/services/subscribers/ReceiveNotification" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="EventPushSubscriber">
     <wsdl:port name="EventPushSubscriberSoap" binding="tns:EventPushSubscriberSoap">
-      <soap:address location="https://sandbox.sertifi.net/TestSite/Services/EventPushSubscriber.asmx"/>
+      <soap:address location="https://sandbox.sertifi.net/TestSite/Services/EventPushSubscriber.asmx" />
     </wsdl:port>
     <wsdl:port name="EventPushSubscriberSoap12" binding="tns:EventPushSubscriberSoap12">
-      <soap12:address location="https://sandbox.sertifi.net/TestSite/Services/EventPushSubscriber.asmx"/>
+      <soap12:address location="https://sandbox.sertifi.net/TestSite/Services/EventPushSubscriber.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
