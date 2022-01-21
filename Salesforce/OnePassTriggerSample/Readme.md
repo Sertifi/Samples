@@ -83,8 +83,8 @@ insert attachmentPDF;
          string results = Sertifi2_0.SertifiSFAPI.sendEContractToSertifi(eContractId, settings); 
         
     }
+```
 
-    
-Refer to the sample onepass code from the bitbucket for more details.Here is the link
+- Refer to the sample onepass code from the bitbucket for more details.Here is the link
 
-        https://bitbucket.org/sertifi/samples/src/master/Salesforce/OnePassApexSample/OneCallCreateObjects/
+     https://bitbucket.org/sertifi/samples/src/master/Salesforce/OnePassApexSample/OneCallCreateObjects/
