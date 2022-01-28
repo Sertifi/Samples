@@ -1,8 +1,8 @@
-// Here Solicitud__c  is a custom object
-// SolicitudTriggerHandler is an Apex class
+// Here Candidate__c  is a custom object
+// CandidateTriggerHandler is an Apex class
 
-trigger SolicitudSTrigger on Solicitud__c (after Update ){
+trigger CandidateTrigger on Candidate__c (after Update ){
     if ( Trigger.isUpdate){
-    SolicitudTriggerHandler.sendEContract(Trigger.NewMap,Trigger.OldMap);
+    CandidateTriggerHandler.sendEContract(Trigger.NewMap,Trigger.OldMap);
     }
 }
