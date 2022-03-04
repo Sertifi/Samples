@@ -1,8 +1,9 @@
 // Here Candidate__c  is a custom object
 // CandidateTriggerHandler is an Apex class
 
-trigger CandidateTrigger on Candidate__c (after Update ){
-    if ( Trigger.isUpdate){
-    CandidateTriggerHandler.sendEContract(Trigger.NewMap,Trigger.OldMap);
+trigger CandidateTrigger on Candidate__c (after Update ) {
+    if ( Trigger.isUpdate)
+    {
+         CandidateTriggerHandler.sendEContract(Trigger.NewMap, Trigger.OldMap);
     }
 }

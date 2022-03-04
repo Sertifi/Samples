@@ -1,9 +1,11 @@
-public class CandidateTriggerHandler {
+public with sharing class CandidateTriggerHandler {
     public static void sendEContract(Map<Id,Candidate__c> newMap, Map<Id,Candidate__c> oldMap){
         Id eContractId ;
         Sertifi2_0__TestContract__c newContract = new Sertifi2_0__TestContract__c ();
         for (Candidate__c candid : oldMap.values()){
-            if (newMap.get(candid.Id).Sertifi2_0__Send_Offer__c && (oldMap.get(candid.Id).Sertifi2_0__Send_Offer__c != newMap.get(candid.Id).Sertifi2_0__Send_Offer__c)	 ){
+            Candidate__c newCandidateValue = newMap.get(candid.Id);
+            Candidate__c oldCandidateValue = oldMap.get(candid.Id);
+            if (newCandidateValue.Sertifi2_0__Send_Offer__c && (oldCandidateValue.Sertifi2_0__Send_Offer__c != newCandidateValue.Sertifi2_0__Send_Offer__c)	 ){
                 newContract.Name = 'Test Invites 1';
                 newContract.Sertifi2_0__Message__c = 'Custom invite message';
                 newContract.Sertifi2_0__Sign_Type__c = 'Electronically';
@@ -59,11 +61,11 @@ public class CandidateTriggerHandler {
     
         
     }
-    @future(callout=true)
+    @future(callout = true)
     public static void callSertifi(Id econtractId){
         Sertifi2_0__SertifiSettings__c settings = Sertifi2_0__SertifiSettings__c.getValues('Settings');
         string results = Sertifi2_0.SertifiSFAPI.sendEContractToSertifi(eContractId, settings);
-        System.debug('The result is  '+results);
+        System.debug('The result is  ' + results);
     }
 
 }
