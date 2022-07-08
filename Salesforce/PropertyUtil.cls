@@ -29,7 +29,7 @@ public with sharing class PropertyUtil {
 
         Map<Id, List<nihrm__Location__Share>> sharesByPropertyId = new Map<Id, List<nihrm__Location__Share>>();
         for (nihrm__Location__Share b : propertyShares) {
-            System.debug(b);
+            //System.debug(b);
             List<nihrm__Location__Share> shares = sharesByPropertyId.get(b.ParentId);
             if (null == shares)
                 shares = new List<nihrm__Location__Share>();
