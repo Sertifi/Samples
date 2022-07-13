@@ -11,7 +11,9 @@ public with sharing class EcontractShareUtil {
             [
                 SELECT Id, UserOrGroupId, AccessLevel, RowCause, ParentId
                 FROM nihrm__Booking__Share
-                WHERE RowCause != 'Owner' AND ParentId IN :bookingIds
+                WHERE RowCause != 'Owner' 
+                AND IsDeleted = false
+                AND ParentId IN :bookingIds
             ]
         );
     }
