@@ -1,6 +1,4 @@
 public with sharing class EcontractShareUtil {
-    private EcontractShareUtil() {
-    }
 
     public static void copyBookingSharesToEcontract(List<Id> bookingIds) {
         // The Owner share is special, and we won't be
@@ -22,8 +20,14 @@ public with sharing class EcontractShareUtil {
         // with a List of each Share for that Booking record
         // as the value.
 
+        // Also build a list of the Ids of User/Groups in
+        // order to look up User records later.
+
         Map<Id, List<nihrm__Booking__Share>> sharesByBookingId = new Map<Id, List<nihrm__Booking__Share>>();
+        List<Id> userOrGroupIds = new List<Id>();
         for (nihrm__Booking__Share b : bookingShares) {
+            userOrGroupIds.add(b.UserOrGroupId);
+
             List<nihrm__Booking__Share> shares = sharesByBookingId.get(b.ParentId);
             if (null == shares)
                 shares = new List<nihrm__Booking__Share>();
@@ -58,6 +62,13 @@ public with sharing class EcontractShareUtil {
             shares.add(c);
             sharesByEcontractId.put(c.ParentId, shares);
         }
+
+        // Query User records for the UserOrGroupIds, and get their
+        // IsActive Status. These are Map'd by Id to look up in the
+        // loop over Booking shares.
+        Map<Id, User> shareUsers = new Map<Id, User>(
+            [SELECT Id, IsActive FROM User WHERE Id IN :userOrGroupIds]
+        );
 
         // Loop over the eContracts and build a share
         // for each one that mirrors the Booking it relates to
@@ -99,6 +110,14 @@ public with sharing class EcontractShareUtil {
                     }
                 }
 
+                // Check the UserOrGroupId against our User Map.
+                // If the Id is in there, and the User is IsActive
+                // false, mark the share for conflict.
+
+                User bookingShareUser = shareUsers.get(bookingShare.UserOrGroupId);
+                if(null != bookingShareUser && !bookingShareUser.IsActive)
+                    noConflicts = false;
+
                 // Everything the same as the Booking__Share,
                 // except now the parent is an EContract. You
                 // can't insert a Share with 'Full' Access, only
@@ -120,7 +139,7 @@ public with sharing class EcontractShareUtil {
             }
         }
 
-        for(Sertifi2_0__TestContract__Share es :newEconShares) {
+        for (Sertifi2_0__TestContract__Share es : newEconShares) {
             System.debug('New Share Attempt: ' + es);
         }
 

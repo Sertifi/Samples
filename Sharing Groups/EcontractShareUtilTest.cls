@@ -77,12 +77,15 @@ public with sharing class EcontractShareUtilTest {
 
         insert bookings;
 
-        Sertifi2_0__TestContract__c econtract = new Sertifi2_0__TestContract__c();
-        econtract.Name = 'Pizza Contract';
-        econtract.CurrencyIsoCode = 'USD';
-        econtract.sertifisem__Booking__c = bookings[0].Id;
+        List<Sertifi2_0__TestContract__c> contracts = new List<Sertifi2_0__TestContract__c>{
+            new Sertifi2_0__TestContract__c(
+                Name = 'Pizza Contract',
+                CurrencyIsoCode = 'USD',
+                sertifisem__Booking__c = bookings[0].Id
+            )
+        };
 
-        insert econtract;
+        insert contracts;
     }
 
     @isTest
@@ -97,6 +100,7 @@ public with sharing class EcontractShareUtilTest {
         List<Sertifi2_0__TestContract__c> econs = [
             SELECT Id, Name
             FROM Sertifi2_0__TestContract__c
+            WHERE sertifisem__Booking__c = :booking.Id
         ];
         System.assertEquals(1, econs.size(), 'There should be only one EContract.');
 
@@ -409,4 +413,5 @@ public with sharing class EcontractShareUtilTest {
             'There should still be three rules for the EContract.'
         );
     }
+
 }
