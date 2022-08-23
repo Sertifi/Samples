@@ -26,9 +26,9 @@ Salesforce Documentation can be found here:
 
 ### Prerequisites
 
-You must have Sertifi's Salesforce package installed in your Org, and configured with 
+You must have Sertifi's Salesforce package installed in your Org, and have configured its Custom Settings. You will need real-time updates configured. For more information see Sertifi's support pages: [Enabling Real Time Updates](https://support.sertifi.com/Content/Integrations/Amadeus%20Hospitality/Install%20and%20Setup/Enabling%20Real%20Time%20Updates.htm).
 
-#### To Install the Apex Class
+### Install the Apex Class
 
 1. Navigate to Setup -> Develop -> Apex Classes
 1. Click New
@@ -37,7 +37,7 @@ You must have Sertifi's Salesforce package installed in your Org, and configured
 1. Replace the email on line 9 with an email of your choosing. (This is signer.)
 1. Click Save
 
-#### To install the Visualforce Page
+### Install the Visualforce Page
 
 1. Navigate to Setup -> Develop -> Visualforce Pages
 1. Click New
