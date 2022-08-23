@@ -1,4 +1,4 @@
-<apex:page controller="ExampleSertifiClient"
+<apex:page controller="ExampleGetlinkFlowController"
            id="exampleGetLinkFlow"
            docType="html-5.0">
 <h1>EXAMPLE ONLY</h1>
