@@ -96,6 +96,11 @@ public with sharing class OpportunityTriggerHandler {
         insert signers;
         insert payments;
 
+        /**
+         * Here a link to the same ContentDocumentId is created for each EDocument,
+         * thereby attaching that File as a signing document. More complex logic
+         * could be used if one of several, or multiple, PDFs should be attached.
+         */
         List<ContentDocumentLink> links = new List<ContentDocumentLink>();
         for (Sertifi2_0__EDocument__c doc : documents) {
             links.add(
