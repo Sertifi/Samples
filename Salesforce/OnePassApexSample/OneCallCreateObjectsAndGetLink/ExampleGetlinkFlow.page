@@ -1,0 +1,27 @@
+<apex:page controller="ExampleGetlinkFlowController"
+           id="exampleGetLinkFlow"
+           docType="html-5.0">
+<h1>EXAMPLE ONLY</h1>
+<apex:form id="theForm">
+
+    <apex:commandButton value="createObjects" title="Create Objects" action="{!createObjects}" reRender="theForm" />
+    <apex:commandButton value="sendToSertifi" title="Send to Sertifi" action="{!sendToSertifi}" reRender="theForm"/>
+    <apex:commandButton value="getLink" title="Get Payment Link" action="{!getPaymentLink}" reRender="theForm"/>
+
+    <div id="results">
+        <h2>Objects</h2>
+        <p>EContract Id: {!contract.Id}</p>
+        <p>EContract CreatedDate: {!contract.CreatedDate}</p>
+        <p>EContract Sertifi Id: {!contract.Sertifi2_0__ContractID__c}</p>
+        <p></p>
+        <p>Payment Id: {!payment.Id}</p>
+        <p>Payment CreatedDate: {!payment.CreatedDate}</p>
+        <p>Payment Sertifi Id: {!payment.Sertifi2_0__SertifiId__c}</p>
+        <p></p>
+        <p>Payment Link: {!link}</p>
+        <a href="{!link}">{!link}</a>
+    </div>
+
+
+</apex:form>    
+</apex:page>
