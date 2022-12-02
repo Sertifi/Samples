@@ -24,25 +24,33 @@ public with sharing class OpportunityTriggerHandler {
         ?.Id;
 
         /**
-         * Select a ContentDocumentId of your choosing, possibly from a predefined list.
-         * The file must be a valid PDF.
+         * Create File by inserting ContentVersion. (Note the
+         * associated ContentDocument will be automagically generated
+         * by Salesforce.) In a real implementation you might have logic
+         * to select the Id of a ContentVersion from some predefined list.
          */
+        ContentVersion signingDocumentFile = new ContentVersion(
+            Title = 'TEST_DOC',
+            VersionData = Blob.toPdf('TEST_CONTENT'),
+            PathOnClient = 'doc.pdf',
+            IsMajorVersion = true
+        );
+        insert signingDocumentFile;
+
         Id contentDocumentId = [
-            SELECT Id
-            FROM ContentDocument
-            WHERE Title = 'SigningDocument'
+            SELECT ContentDocumentId
+            FROM ContentVersion
+            WHERE Id = :signingDocumentFile.Id
             LIMIT 1
         ]
-        ?.Id;
+        ?.ContentDocumentId;
 
         List<Sertifi2_0__TestContract__c> contracts = new List<Sertifi2_0__TestContract__c>();
         List<Sertifi2_0__EDocument__c> documents = new List<Sertifi2_0__EDocument__c>();
         List<Sertifi2_0__ContractContactJunction__c> signers = new List<Sertifi2_0__ContractContactJunction__c>();
         List<Sertifi2_0__Payment__c> payments = new List<Sertifi2_0__Payment__c>();
-
         for (Opportunity newOpp : newMap.values()) {
             Opportunity oldOpp = oldMap.get(newOpp.Id);
-
             if ('Closed Won'.equals(newOpp.StageName) && (oldOpp.StageName != newOpp.StageName)) {
                 contracts.add(
                     new Sertifi2_0__TestContract__c(
@@ -54,7 +62,6 @@ public with sharing class OpportunityTriggerHandler {
                         Sertifi2_0__Settings__c = 'Settings'
                     )
                 );
-
                 documents.add(
                     new Sertifi2_0__EDocument__c(
                         Sertifi2_0__Name__c = 'Test doc',
@@ -62,7 +69,6 @@ public with sharing class OpportunityTriggerHandler {
                         Sertifi2_0__Document_Type__c = 'Signing Document'
                     )
                 );
-
                 signers.add(
                     new Sertifi2_0__ContractContactJunction__c(
                         Sertifi2_0__Contact__c = placeholderContactId,
@@ -71,7 +77,6 @@ public with sharing class OpportunityTriggerHandler {
                         Sertifi2_0__Email__c = 'gstansill@sertifi.com'
                     )
                 );
-
                 payments.add(
                     new Sertifi2_0__Payment__c(
                         Name = 'Test Payment',
@@ -80,22 +85,17 @@ public with sharing class OpportunityTriggerHandler {
                         Sertifi2_0__DueDate__c = Date.today().addDays(30)
                     )
                 );
-
             }
         }
-
         insert contracts;
-
         for (Integer i = 0; i < contracts.size(); i++) {
             documents[i].Sertifi2_0__TestContract__c = contracts[i].Id;
             signers[i].Sertifi2_0__TestContract__c = contracts[i].Id;
             payments[i].Sertifi2_0__EContract__c = contracts[i].Id;
         }
-
         insert documents;
         insert signers;
         insert payments;
-
         /**
          * Here a link to the same ContentDocumentId is created for each EDocument,
          * thereby attaching that File as a signing document. More complex logic
@@ -113,17 +113,14 @@ public with sharing class OpportunityTriggerHandler {
             );
         }
         insert links;
-
         for (Sertifi2_0__TestContract__c contract : contracts) {
             callSertifi(contract.Id);
         }
     }
-
     /**
      * 'Settings' is the default name of Sertifi's App settings. Your implementation
      * may differ, or have multiple Settings.
      */
-
     @future(callout=true)
     private static void callSertifi(Id econtractId) {
         String results = Sertifi2_0.SertifiSFAPI.sendEContractToSertifi(
