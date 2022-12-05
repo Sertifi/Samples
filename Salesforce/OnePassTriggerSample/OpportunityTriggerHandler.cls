@@ -74,7 +74,7 @@ public with sharing class OpportunityTriggerHandler {
                         Sertifi2_0__Contact__c = placeholderContactId,
                         Sertifi2_0__Signer_Order__c = 1,
                         Sertifi2_0__Level_Name__c = '1st Signer',
-                        Sertifi2_0__Email__c = 'gstansill@sertifi.com'
+                        Sertifi2_0__Email__c = 'my_signers_email@yahoo.com'
                     )
                 );
                 payments.add(
