@@ -13,11 +13,11 @@ a skeleton built by Sertifi to accomplish some core tasks, this may take the for
 
 ### NOTE 
 
-Please make sure that you have appropriate runtimes, modules, packages and most importantly API KEYS for any implementations you wish to mimic or build upon!
+Please make sure that you have appropriate runtimes, modules, packages and most importantly **API KEYS** for any implementations you wish to mimic or build upon!
  
 ## EventPushListener
 
-- Rest and JSON Event Push Subscriber [README](EventPushListener\RestAndJsonEventPushSubscriber\RestAndJsonEventPushSubscriber\ReadMe.md)
+- REST and JSON Event Push Subscriber [README](EventPushListener\RestAndJsonEventPushSubscriber\RestAndJsonEventPushSubscriber\ReadMe.md)
 - [Enumerated event types](EventPushListener\RestAndJsonEventPushSubscriber\RestAndJsonEventPushSubscriber\Models\EventType.cs) to subscribe to
 - [Startup and Hello Word](EventPushListener\RestAndJsonEventPushSubscriber\RestAndJsonEventPushSubscriber\Startup.cs) response
 
