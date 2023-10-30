@@ -23,7 +23,7 @@ Please make sure that you have appropriate runtimes, modules, packages and most 
 
 ## GatewayAPI
 
-- [C# implementation](<GatewayAPI\DotNet\GettingStarted\Sertifi C%23 Code Sample.cs>) *
+- [C# implementation](<GatewayAPI\DotNet\GettingStarted\Sertifi C%23 Code Sample.cs>) 
 - [Java implementation 1](GatewayAPI\Java\Code_Sample_1\JavaSample.java)
 - [Java implementation 2](GatewayAPI\Java\Code_Sample_2\Main.java)
 - [PHP implementation](<GatewayAPI\PHP\GettingStarted\Sertifi php Example.php>)
