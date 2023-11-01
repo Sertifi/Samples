@@ -40,7 +40,7 @@ Please make sure that you have appropriate runtimes, modules, packages and most 
 - [Snippets overview for building via parameters README](<Salesforce/OnePassApexSample/README.md>)
 - [Visualforce Page and controller how to README](<Salesforce\OnePassApexSample\OneCallCreateObjectsAndGetLink\README.md>)
 - [One Pass sample C#](<Salesforce\OnePassDotNetSample\Program.cs>)
-- [Esgin for Salesforce API send eContract via Apex trigger README](<Salesforce\OnePassTriggerSample\Readme.md>)
+- [Esign for Salesforce API send eContract via Apex trigger README](<Salesforce\OnePassTriggerSample\Readme.md>)
 - [SendZQuotes Button README](<Salesforce\SendZQuotesFromOppSample\README.md>)
 - [Sertifi API samples](<Salesforce\SertifiSFAPISamples\GetLinkSample.txt>)
 
