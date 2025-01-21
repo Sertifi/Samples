@@ -1,19 +1,15 @@
 # Introduction to Samples 
 
-Welcome to the Sertifi public samples repository! Here is a collection of code samples that can be used as a foundation to help extend your applications current abilities using 
-a skeleton built by Sertifi to accomplish some core tasks, this may take the form of:
+Welcome to the Sertifi public samples repository! Here is a collection of code samples that can be used as a foundation to extend your application's current abilities using 
+a skeleton built by Sertifi to accomplish some core tasks. This could take the form of:
 
-1) Subscribing to and creating requests based on Event notification Information
+* Subscribing to and creating requests based on Event notification Information
+* Implementing our Gateway API to handle or get information about payments, documents, signatures, and signers
+* Using Postman to call our REST API
+* Testing various implementaions for Salesforce.com (SFDC)
 
-2) implementing our Gateway API to handle or get information about payments, documents, signatures, and signers
-
-3) REST API which utilizes postman to carry out basic calls
-
-4) Various implementaions for Salesforce.com 
-
-### NOTE 
-
-Please make sure that you have appropriate runtimes, modules, packages and most importantly **API KEYS** for any implementations you wish to mimic or build upon!
+[!NOTE] 
+Please make sure that you have appropriate runtimes, modules, packages, and most importantly, the **API KEYS** for any implementations you wish to mimic or build upon.
  
 ## EventPushListener
 
